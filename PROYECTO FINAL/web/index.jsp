@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Controlador?accion=home">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Ofertas del Dia</a>
@@ -48,17 +49,18 @@
         </nav>  
         <div class="container mt-4">
             <div class="row">
+                <c:forEach var="p" items="${productos}">
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-header">
-                                <label>Nombre Producto</label>
+                                <label>${p.getNombres()}</label>
                             </div>
                             <div class="card-body">
-                                <i>$.56.00</i>
-                                <img src="" width="200" height="180">
+                                <i>${p.getPrecio()}</i>
+                                <img src="ControladorIMG?id=${p.getId()}" width="200" height="180">
                             </div>
                             <div class="card-footer text-center">
-                                <label> Descripcion Producto</label>
+                                <label> ${p.getDescripcion}</label>
                                 <div>
                                     <a href="$" class="btn btn-outline-info">Agregar a Carrito</a>
                                     <a href="$" class="btn btn-danger">Comprar</a>
@@ -66,6 +68,7 @@
                             </div>
                         </div>
                     </div>
+                </c:forEach>
             </div>
         </div>
 
