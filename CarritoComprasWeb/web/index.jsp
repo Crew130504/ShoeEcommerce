@@ -21,11 +21,10 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Ofertas del Dia</a>
                     </li>
-                    
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Carrito</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -35,7 +34,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                            Iniciar Sesion
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Action</a>
@@ -46,9 +45,28 @@
                     </li>
                 </ul>
             </div>
-        </nav>
-        <div class="container mt-2">
-
+        </nav>  
+        <div class="container mt-4">
+            <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <label>Nombre Producto</label>
+                            </div>
+                            <div class="card-body">
+                                <i>$.56.00</i>
+                                <img src="" width="200" height="180">
+                            </div>
+                            <div class="card-footer text-center">
+                                <label> Descripcion Producto</label>
+                                <div>
+                                    <a href="$" class="btn btn-outline-info">Agregar a Carrito</a>
+                                    <a href="$" class="btn btn-danger">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
