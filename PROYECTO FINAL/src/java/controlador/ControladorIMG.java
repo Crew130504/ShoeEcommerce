@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.ProductoDAO;
 
-/**
- *
- * @author juanp
- */
 @WebServlet(name = "ControladorIMG", urlPatterns = {"/ControladorIMG"})
 public class ControladorIMG extends HttpServlet {
     ProductoDAO pdao=new ProductoDAO();

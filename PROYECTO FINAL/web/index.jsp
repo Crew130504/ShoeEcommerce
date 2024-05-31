@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">Ofertas del Dia</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Carrito</a>
+                        <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange">${Contador}</label>)</i>Carrito</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -60,10 +60,10 @@
                                 <img src="ControladorIMG?id=${p.getId()}" width="200" height="180">
                             </div>
                             <div class="card-footer text-center">
-                                <label> ${p.getDescripcion}</label>
+                                <label>${p.getDescripcion()}</label>
                                 <div>
                                     <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a Carrito</a>
-                                    <a href="$" class="btn btn-danger">Comprar</a>
+                                    <a href="Controlador?accion=Comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,6 @@
                 </c:forEach>
             </div>
         </div>
-
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
