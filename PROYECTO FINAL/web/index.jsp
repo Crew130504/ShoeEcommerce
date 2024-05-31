@@ -61,6 +61,7 @@
                             </div>
                             <div class="card-footer text-center">
                                 <label>${p.getDescripcion()}</label>
+
                                 <div>
                                     <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a Carrito</a>
                                     <a href="Controlador?accion=Comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>

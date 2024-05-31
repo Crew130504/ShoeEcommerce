@@ -40,7 +40,7 @@ public class Controlador extends HttpServlet {
                 idp = Integer.parseInt(request.getParameter("id"));
                 p = pdao.listarId(idp);
                 item = item + 1;
-                car = new Carrito();
+                car = new Carrito();              
                 car.setItem(item);
                 car.setIdProducto(p.getId());
                 car.setNombres(p.getNombres());
@@ -73,6 +73,14 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("Contador", listaCarrito.size());
                 request.getRequestDispatcher("Controlador?accion=home").forward(request, response);
                 break;
+            case  "Delete":
+                idp=Integer.parseInt(request.getParameter("idp"));
+                for (int i = 0; i < listaCarrito.size(); i++) {
+                    if(listaCarrito.get(1).getIdProducto()==idp){
+                     listaCarrito.remove(i);
+                    }
+                }
+                break;
             case "Carrito":
                 totalPagar = 0.0;
                 request.setAttribute("carrito", listaCarrito);
@@ -81,7 +89,6 @@ public class Controlador extends HttpServlet {
                 }
                 request.setAttribute("totalPagar", totalPagar);
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
-
                 break;
             default:
                 request.setAttribute("productos", productos);
