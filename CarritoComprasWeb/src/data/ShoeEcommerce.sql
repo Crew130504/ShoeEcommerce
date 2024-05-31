@@ -62,3 +62,19 @@ CREATE TABLE `detalle_compras` (
   CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`idCompras`) REFERENCES `compras` (`idCompras`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Insert data into the `producto` table
+INSERT INTO `producto` (`Nombres`, `Foto`, `Descripcion`, `Precio`, `Stock`)
+VALUES
+('Response Runner U', LOAD_FILE('path_to_images/response_runner_u.jpg'), 'Running, Gris, Sizes: 38, 39, 40, 41, 42', 199950, 1),
+('Courtjam Control 3', LOAD_FILE('path_to_images/courtjam_control_3.jpg'), 'Tennis, Negro, Sizes: 40, 41, 42, 43, 44', 479950, 1),
+('Grand Court TD', LOAD_FILE('path_to_images/grand_court_td.jpg'), 'Sportswear, Negro, Sizes: 36, 37, 38, 39, 40', 299950, 1),
+('Response Low', LOAD_FILE('path_to_images/response_low.jpg'), 'Originals, Crema, Sizes: 38, 39, 40, 41, 42', 799950, 1),
+('Forum Mid', LOAD_FILE('path_to_images/forum_mid.jpg'), 'Originals, Blanco, Amarillo, Sizes: 40, 41, 42, 43, 44', 599950, 1),
+('Forum Low CL', LOAD_FILE('path_to_images/forum_low_cl.jpg'), 'Originals, Blanco, Verde, Sizes: 36, 37, 38, 39, 40', 599950, 1),
+('Ozmillen', LOAD_FILE('path_to_images/ozmillen.jpg'), 'Originals, Gris, Sizes: 38, 39, 40, 41, 42', 599950, 1),
+('Response CL', LOAD_FILE('path_to_images/response_cl.jpg'), 'Originals, Verde, Sizes: 38, 39, 40, 41, 42', 799950, 1),
+('Ligthmotion Mid', LOAD_FILE('path_to_images/ligthmotion_mid.jpg'), 'Sportswear, Negro, Sizes: 38, 39, 40, 41, 42', 439950, 1),
+('Eastrail 2.0', LOAD_FILE('path_to_images/eastrail_2.jpg'), 'Terrex, Verde, Sizes: 38, 39, 40, 41, 42', 429950, 1),
+('X_PLR Phase', LOAD_FILE('path_to_images/x_plr_phase.jpg'), 'Sportswear, Azul, Sizes: 38, 39, 40, 41, 42', 629950, 1),
+('Switch Run', LOAD_FILE('path_to_images/switch_run.jpg'), 'Running, Blanco, Sizes: 38, 39, 40, 41, 42', 499950, 1);
