@@ -1,4 +1,4 @@
-package modelo;
+package modeloDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +12,14 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Producto;
 
 public class ProductoDAO {
     Connection con;
     Conexion cn=new Conexion();
     PreparedStatement ps;
     ResultSet rs;
+    
     
     public Producto listarId(int id){
         String sql="select * from producto where idProducto="+id;

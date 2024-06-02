@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.ProductoDAO;
+import modeloDAO.ProductoDAO;
 
 @WebServlet(name = "ControladorIMG", urlPatterns = {"/ControladorIMG"})
 public class ControladorIMG extends HttpServlet {
