@@ -17,10 +17,6 @@ import modelo.Producto;
 import modeloDAO.CompraDAO;
 import modeloDAO.ProductoDAO;
 
-/**
- *
- * @author juanp
- */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
@@ -117,17 +113,17 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
             case "ActualizarCantidad":
-                int idpro=Integer.parseInt(request.getParameter("idp"));
-                int cant=Integer.parseInt(request.getParameter("Cantidad"));
+                int idpro = Integer.parseInt(request.getParameter("idp"));
+                int cant = Integer.parseInt(request.getParameter("Cantidad"));
                 for (int i = 0; i < listaCarrito.size(); i++) {
-                   if (listaCarrito.get(i).getIdProducto() == idpro) {
+                    if (listaCarrito.get(i).getIdProducto() == idpro) {
                         listaCarrito.get(i).setCantidad(cant);
-                        double st =listaCarrito.get(i).getPrecioCompra()*cant;
+                        double st = listaCarrito.get(i).getPrecioCompra() * cant;
                         listaCarrito.get(i).setSubTotal(st);
-                        
-                    } 
+
+                    }
                 }
-                
+
             case "Carrito":
                 totalPagar = 0.0;
                 request.setAttribute("carrito", listaCarrito);
@@ -137,22 +133,22 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("totalPagar", totalPagar);
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
-            case"GenerarCompra":
+            case "GenerarCompra":
                 Cliente cliente = new Cliente();
                 cliente.setId(1);
-                CompraDAO dao= new CompraDAO();
-                Compra compra=new Compra(cliente, 1,Fecha.FechaBD(),totalPagar,"Cancelado",listaCarrito);
-                int res=dao.GenerarCompra(compra);
-                if(res!=0&&totalPagar>0){
-                   request.getRequestDispatcher("mensaje.jsp").forward(request, response); 
-                }else{
-                   request.getRequestDispatcher("errror.jsp").forward(request, response);  
+                CompraDAO dao = new CompraDAO();
+                Compra compra = new Compra(cliente, 1, Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
+                int res = dao.GenerarCompra(compra);
+                if (res != 0 && totalPagar > 0) {
+                    request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-                
+
                 break;
             default:
                 request.setAttribute("productos", productos);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
