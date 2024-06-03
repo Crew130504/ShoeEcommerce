@@ -40,7 +40,7 @@ $(document).ready(function () {
         var cantidad = $(this).parent().find("#Cantidad").val();
         var url = "Controlador?accion=ActualizarCantidad";
         $.ajax({
-            typr: 'POST',
+            type: 'POST',
             url: url,
             data: "idp=" + idp + "&Cantidad=" + cantidad,
             success: function (data, textStatus, jqXHR) {
@@ -49,6 +49,24 @@ $(document).ready(function () {
 
         });
 
-    })
+    }); 
+    $("#searchInput").on("input", function() {
+        filtrarProductos();
+    });
+    function filtrarProductos() {
+        var value = $("#searchInput").val().toLowerCase().trim();
+
+        if (value === "") {
+            $(".card").parent().show();  
+        } else {
+            $(".card").each(function () {
+                var isVisible = $(this).text().toLowerCase().indexOf(value) > -1;
+                $(this).parent().toggle(isVisible); 
+            });
+        }
+
+    }
+
+
 
 });

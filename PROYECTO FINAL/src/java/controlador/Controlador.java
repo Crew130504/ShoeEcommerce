@@ -4,6 +4,7 @@ import config.Fecha;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -145,13 +146,14 @@ public class Controlador extends HttpServlet {
                 pago.setMonto(totalPagar);
                 pago = daoPago.GenerarPago(pago);
                 CompraDAO dao = new CompraDAO();
-                if (cliente == null || pago== null) {
+                if (cliente == null || pago == null) {
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 } else {
                     Compra compra = new Compra(cliente, pago.getId(), Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
                     int res = dao.GenerarCompra(compra);
                     if (res != 0 && totalPagar > 0) {
                         request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+                        listaCarrito.clear();
                     } else {
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
