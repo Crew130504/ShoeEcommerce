@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Producto;
+import modeloDAO.ProductoDAO;
 
 /**
  *
@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ControladorAdmin", urlPatterns = {"/ControladorAdmin"})
 public class ControladorAdmin extends HttpServlet {
+
+    ProductoDAO pdao = new ProductoDAO();
+    Producto p = new Producto();
+    List<Producto> productos = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,10 +34,26 @@ public class ControladorAdmin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Codigo Servlet
+        productos = pdao.listar();
+        String accion = request.getParameter("accion");
+        switch (accion) {
+            case "rutaAdmin":
+                request.setAttribute("productos", productos);
+                request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                break;
+            case "rutaInsertarProducto":
+                request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
+                break;
+            case "rutaHistorial":
+                request.getRequestDispatcher("historial.jsp").forward(request, response);
+                break;
+            case "rutaClientes":
+                request.getRequestDispatcher("clientesAdmin.jsp").forward(request, response);
+                break;
+            default:
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

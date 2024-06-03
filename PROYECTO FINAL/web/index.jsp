@@ -14,7 +14,7 @@
                 <h1 class="title">Shoe Ecommerce</h1>
                 <div class="btn-container">
                     <a href="Controlador?accion=home" class="btn btn-primary btn-lg mb-2">Ingresar a la tienda</a>
-                    <a href="ControladorAdmin?accion=home" class="btn btn-secondary btn-lg">Iniciar como Administrador</a>
+                    <a href="ControladorAdmin?accion=rutaAdmin" class="btn btn-secondary btn-lg">Iniciar como Administrador</a>
                 </div>
             </div>
         </div>
