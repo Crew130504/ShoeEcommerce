@@ -159,7 +159,32 @@ public class Controlador extends HttpServlet {
                     }
                 }
                 break;
-            case "log":
+            case "registrar":
+                String correo = request.getParameter("correo");
+                listaClientes = cdao.listaDeClientes();
+                for (Cliente cliente : listaClientes) {
+                    if (cliente.getCorreo().equals(correo)) {
+                        System.out.println("Correo existente");
+                    }else{
+                    String dni = request.getParameter("dni");
+                    String nombres = request.getParameter("nombres");
+                    String direccion = request.getParameter("direccion");
+                    String password = request.getParameter("password");
+                    cliente.setDni(dni);
+                    cliente.setNombre(nombres);
+                    cliente.setDireccion(direccion);
+                    cliente.setCorreo(correo);
+                    cliente.setPassword(password);
+                    cdao.registrarCliente(cliente);
+                    }
+                }
+                break;
+            case"iniciarSesion":
+                correo = request.getParameter("correo");
+                String password = request.getParameter("password");
+                for(Cliente cliente : listaClientes){
+                
+                }
                 break;
             default:
                 request.setAttribute("productos", productos);
