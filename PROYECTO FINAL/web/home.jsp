@@ -34,8 +34,8 @@
                         <i class="bi bi-person"></i> Usuario
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Iniciar Sesión</a>
-                        <a class="dropdown-item" href="#">Registrarse</a>
+                        <a class="dropdown-item" href="Controlador?accion=rutaIniciarSesion">Iniciar Sesión</a>
+                        <a class="dropdown-item" href="Controlador?accion=rutaRegistro">Registrarse</a>
                     </div>
                 </li>
             </ul>

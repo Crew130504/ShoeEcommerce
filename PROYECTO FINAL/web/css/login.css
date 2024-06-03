@@ -1,0 +1,45 @@
+.navbar-custom {
+    background-color: #343a40; /* Color de la barra superior */
+}
+
+.bg-cover {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://media.blogto.com/articles/20180423-MECQueen4.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70') center center no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.custom-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+    max-width: 500px; /* Ancho ajustado a un valor intermedio */
+    margin: 20px;
+}
+
+.navbar-custom .navbar-brand, .navbar-custom .nav-link {
+    color: #ffffff;
+}
+.navbar-custom .nav-link:hover {
+    color: #f0ad4e;
+}
+.card-header-custom {
+    background-color: #343a40;
+    color: #ffffff;
+}
+.card-body-custom {
+    background-color: #f8f9fa;
+}
+.btnLogin {
+    background-color: #343a40; /* Mismo color que la barra superior */
+    border-color: #343a40;
+    color: #ffffff;
+}
+.btnLogin:hover {
+    background-color: #23272b; /* Color al pasar el ratón */
+    border-color: #1d2124;
+}
