@@ -32,22 +32,33 @@ public class ClienteDAO {
             // Obtiene una conexión a la base de datos
             con = Conexion.getConnection();
             // Crea una declaración SQL
-            st = (Statement) con.createStatement();
+            st = con.createStatement();
             // Ejecuta la consulta
             rs = st.executeQuery(consulta);
 
             while (rs.next()) {
-                // Crea objetos ClienteVO y los agrega a la lista
+                // Crea objetos Cliente y los agrega a la lista
                 listaClientes.add(new Cliente(rs.getInt("idCliente"), rs.getString("Dni"), rs.getString("Nombres"), rs.getString("Direccion"), rs.getString("Email"), rs.getString("Password")));
             }
-            // Cierra la declaración y desconecta de la base de datos
-            st.close();
-            Conexion.desconectar();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime el error en la consola para diagnóstico
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return listaClientes;
     }
-
     public int registrarCliente(String dni, String nombre, String direccion, String correo, String password) {
         String sqlCheck = "SELECT COUNT(*) FROM cliente WHERE Email = ? OR Dni = ?";
         Connection con = null;
@@ -129,6 +140,45 @@ public class ClienteDAO {
         } catch (SQLException e) {
         }
 
+        return cliente;
+    }
+
+    public Cliente iniciarSesion(String correo, String password) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM cliente WHERE Email = ? AND Password = ?";
+        try {
+            con = Conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, correo);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                cliente = new Cliente(
+                        rs.getInt("idCliente"),
+                        rs.getString("Dni"),
+                        rs.getString("Nombres"),
+                        rs.getString("Direccion"),
+                        rs.getString("Email"),
+                        rs.getString("Password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime el error en la consola para diagnóstico
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return cliente;
     }
 }
