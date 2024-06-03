@@ -15,14 +15,14 @@
     <body>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="ControladorAdmin?accion=rutaAdmin">Shoe Ecommerce<label style="color: orange">&nbsp ADMIN PANEL</label></a>
+            <a class="navbar-brand" href="ControladorAdmin?accion=adminHome">Shoe Ecommerce<label style="color: orange">&nbsp ADMIN PANEL</label></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="ControladorAdmin?accion=rutaAdmin">Productos &nbsp;<i class="bi bi-box-seam"></i></a>
+                        <a class="nav-link" href="ControladorAdmin?accion=adminHome">Productos &nbsp;<i class="bi bi-box-seam"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="ControladorAdmin?accion=rutaInsertarProducto">Agregar Producto&nbsp;<i class="bi bi-plus"></i></a>
@@ -40,16 +40,10 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="bi bi-person"></i> ${usuario}
+                            <i class="bi bi-person"></i> Admin
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <c:if test="${usuario == null || usuario == ''}">
-                                <a class="dropdown-item" href="ControladorAdmin?accion=rutaAdmin">Testing Profile</a>    
-                            </c:if>
-                            <!-- Si el usuario está autenticado, muestra opciones de perfil y cerrar sesión -->
-                            <c:if test="${usuario != null && usuario != ''}">
-                                <a class="dropdown-item" href="Controlador?accion=cerrarSesion">Cerrar Sesión</a>
-                            </c:if>
+                                <a class="dropdown-item" href="ControladorAdmin?accion=default">Cerrar Sesión</a>                           
                         </div
                     </li>
                 </ul>

@@ -208,6 +208,10 @@ public class Controlador extends HttpServlet {
                 break;
             case "cerrarSesion":
                 cliente = null;
+                break;
+            case "index":
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                break;
             default:
                 request.setAttribute("productos", productos);
                 if (cliente == null) {

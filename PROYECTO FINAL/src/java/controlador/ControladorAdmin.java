@@ -38,8 +38,7 @@ public class ControladorAdmin extends HttpServlet {
         String accion = request.getParameter("accion");
         switch (accion) {
             case "rutaAdmin":
-                request.setAttribute("productos", productos);
-                request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
                 break;
             case "rutaInsertarProducto":
                 request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
@@ -49,6 +48,22 @@ public class ControladorAdmin extends HttpServlet {
                 break;
             case "rutaClientes":
                 request.getRequestDispatcher("clientesAdmin.jsp").forward(request, response);
+                break;
+            case "adminHome":
+                request.setAttribute("productos", productos);
+                request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                break;
+            case "iniciarSesion":
+                String correoLog = request.getParameter("correoLog");
+                String passwordLog = request.getParameter("passwordLog");
+                
+                if ("admin@shoeecommerce.com".equals(correoLog)&&"123".equals(passwordLog)) {
+                    request.setAttribute("productos", productos);
+                    request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("usuarioNoRegistrado", "Credenciales Incorrectas");
+                    request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
+                }
                 break;
             default:
                 request.getRequestDispatcher("index.jsp").forward(request, response);
