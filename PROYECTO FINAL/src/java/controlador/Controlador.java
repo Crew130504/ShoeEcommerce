@@ -14,6 +14,7 @@ import modelo.Cliente;
 import modelo.Compra;
 import modelo.Pago;
 import modelo.Producto;
+import modeloDAO.ClienteDAO;
 import modeloDAO.CompraDAO;
 import modeloDAO.PagoDAO;
 import modeloDAO.ProductoDAO;
@@ -21,11 +22,13 @@ import modeloDAO.ProductoDAO;
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
+    ClienteDAO cdao = new ClienteDAO();
+    Cliente cliente = new Cliente();
     ProductoDAO pdao = new ProductoDAO();
     Producto p = new Producto();
-    Cliente cliente = new Cliente();
     List<Producto> productos = new ArrayList<>();
     List<Carrito> listaCarrito = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
     int item;
     double totalPagar = 0.0;
     int cantidad = 1;
@@ -153,6 +156,8 @@ public class Controlador extends HttpServlet {
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
                 }
+                break;
+            case "log":
                 break;
             default:
                 request.setAttribute("productos", productos);
