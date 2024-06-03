@@ -31,7 +31,7 @@ USE `shoeecommerce`;
 
 CREATE TABLE `cliente` (
   `idCliente` int(11) UNSIGNED NOT NULL,
-  `Dni` varchar(9) DEFAULT NULL,
+  `Dni` varchar(10) DEFAULT NULL,
   `Nombres` varchar(255) DEFAULT NULL,
   `Direccion` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
