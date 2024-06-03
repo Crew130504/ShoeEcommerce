@@ -1,4 +1,18 @@
 $(document).ready(function () {
+    console.log("Documento cargado. Mensaje duplicado:", $("#userDuplicateMsg").data("msg"));
+    console.log("Documento cargado. Mensaje no registrado:", $("#userNoSignin").data("msg"));
+
+    // Intenta mostrar las alertas con un pequeño retraso
+    setTimeout(function() {
+        var userDuplicateMsg = $("#userDuplicateMsg").data("msg");
+        if (userDuplicateMsg) {
+            alert(userDuplicateMsg);
+        }
+        var userNoSignin = $("#userNoSignin").data("msg");
+        if (userNoSignin) {
+            alert(userNoSignin);
+        }
+    }, 500); 
     $("tr #btnDelete").click(function () {
         console.log("Clicked!"); // Esto debería aparecer en la consola cuando hagas clic en el botón.
         var idp = $(this).parent().find("#idp").val();
@@ -65,8 +79,5 @@ $(document).ready(function () {
             });
         }
 
-    }
-
-
-
+    } 
 });

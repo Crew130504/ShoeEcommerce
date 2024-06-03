@@ -10,7 +10,7 @@
         <div class="container mt-4">
             <div class="col-sm-4">
                 <div class="alert alert -succes" role="alert">
-                    <h4 class="alert-heading">Se Guardo con Exito!</h4>
+                    <h4 class="alert-heading">${mensaje}</h4>
                     <hr>
                     <a href="Controlador?accion=home" class="btn btn-warning">Volver</a>
                     

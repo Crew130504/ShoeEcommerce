@@ -131,6 +131,11 @@ public class Controlador extends HttpServlet {
                 }
 
             case "Carrito":
+                if (cliente == null) {
+                    request.setAttribute("usuario", null);
+                } else {
+                    request.setAttribute("usuario", cliente.getNombre());
+                }
                 totalPagar = 0.0;
                 request.setAttribute("carrito", listaCarrito);
                 for (int i = 0; i < listaCarrito.size(); i++) {
@@ -140,18 +145,19 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
             case "GenerarCompra":
-                cliente.setId(1);
                 Pago pago = new Pago();
                 PagoDAO daoPago = new PagoDAO();
                 pago.setMonto(totalPagar);
                 pago = daoPago.GenerarPago(pago);
                 CompraDAO dao = new CompraDAO();
                 if (cliente == null || pago == null) {
+                    // mensaje que mande a registrar o iniciar sesion al cliente
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 } else {
                     Compra compra = new Compra(cliente, pago.getId(), Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
                     int res = dao.GenerarCompra(compra);
                     if (res != 0 && totalPagar > 0) {
+                        request.setAttribute("mensaje", "COMPRA REALIZADA");
                         request.getRequestDispatcher("mensaje.jsp").forward(request, response);
                         listaCarrito.clear();
                     } else {
@@ -166,33 +172,50 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 break;
             case "registrar":
-                String correo = request.getParameter("correo");
-                listaClientes = cdao.listaDeClientes();
-                for (Cliente cliente : listaClientes) {
-                    if (cliente.getCorreo().equals(correo)) {
-                        System.out.println("Correo existente");
-                    } else {
-                        String dni = request.getParameter("dni");
-                        String nombres = request.getParameter("nombres");
-                        String direccion = request.getParameter("direccion");
-                        String password = request.getParameter("password");
-                        cliente.setDni(dni);
-                        cliente.setNombre(nombres);
-                        cliente.setDireccion(direccion);
-                        cliente.setCorreo(correo);
-                        cliente.setPassword(password);
-                        cdao.registrarCliente(cliente);
-                    }
+                String dni = request.getParameter("dniRegis");
+                String nombres = request.getParameter("nombresRegis");
+                String direccion = request.getParameter("direccionRegis");
+                String correo = request.getParameter("correoRegis");
+                String password = request.getParameter("passwordRegis");
+
+                int resultado = cdao.registrarCliente(dni, nombres, direccion, correo, password);
+
+                if (resultado == 0) {
+                    request.setAttribute("usuarioDuplicado", "El usuario ya se encuentra registrado");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else if (resultado > 0) {
+                    Cliente cliente = new Cliente(resultado, dni, nombres, direccion, correo, password);
+                    request.setAttribute("mensaje", "Gracias por Registrarse");
+                    System.out.println("id: " + cliente.getId());
+                    request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+                } else {
+                    System.out.println("ERROR DE SQL");
                 }
+
                 break;
+
             case "iniciarSesion":
-                correo = request.getParameter("correo");
-                String password = request.getParameter("password");
-                for (Cliente cliente : listaClientes) {
+                String correoLog = request.getParameter("correoLog");
+                String passwordLog = request.getParameter("passwordLog");
+                cliente = cdao.autenticarCliente(correoLog, passwordLog);
+                if (cliente == null) {
+                    request.setAttribute("usuarioNoRegistrado", "Debe Registrarse Previamente");
+                    request.getRequestDispatcher("registro.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("mensaje", "BIENVENIDO DE NUEVO");
+                    request.getRequestDispatcher("mensaje.jsp").forward(request, response);
                 }
                 break;
+            case "cerrarSesion":
+                cliente = null;
             default:
                 request.setAttribute("productos", productos);
+                if (cliente == null) {
+                    request.setAttribute("usuario", null);
+                } else {
+                    request.setAttribute("usuario", cliente.getNombre());
+                }
+
                 request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }

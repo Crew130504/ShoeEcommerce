@@ -25,17 +25,23 @@
                         <a class="nav-link" href="Controlador?accion=home">Seguir Comprando</a>
                     </li>
                 </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-person"></i> Usuario
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="Controlador?accion=rutaIniciarSesion">Iniciar Sesión</a>
-                        <a class="dropdown-item" href="Controlador?accion=rutaRegistro">Registrarse</a>
-                    </div>
-                </li>
-            </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-person"></i> ${usuario}
+                        </a>
+                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <c:if test="${usuario == null || usuario == ''}">
+                                <a class="dropdown-item" href="Controlador?accion=rutaIniciarSesion">Iniciar Sesión</a>
+                                <a class="dropdown-item" href="Controlador?accion=rutaRegistro">Registrarse</a>    
+                            </c:if>
+                            <!-- Si el usuario está autenticado, muestra opciones de perfil y cerrar sesión -->
+                            <c:if test="${usuario != null && usuario != ''}">
+                                <a class="dropdown-item" href="Controlador?accion=cerrarSesion">Cerrar Sesión</a>
+                            </c:if>
+                        </div
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="container mt-4">
@@ -59,7 +65,7 @@
                                 <tr class="text-center">
                                     <td>${car.getItem()}</td>
                                     <td>${car.getNombres()}
-                                    <img src="ControladorIMG?id=${car.getIdProducto()}" width="100" height="100"/></td>
+                                        <img src="ControladorIMG?id=${car.getIdProducto()}" width="100" height="100"/></td>
                                     <td>${car.getDescripcion()}</td>
 
                                     <td>${car.getPrecioCompra()}</td>
