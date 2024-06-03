@@ -15,6 +15,7 @@ import modelo.Compra;
 import modelo.Pago;
 import modelo.Producto;
 import modeloDAO.CompraDAO;
+import modeloDAO.PagoDAO;
 import modeloDAO.ProductoDAO;
 
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
@@ -22,6 +23,7 @@ public class Controlador extends HttpServlet {
 
     ProductoDAO pdao = new ProductoDAO();
     Producto p = new Producto();
+    Cliente cliente = new Cliente();
     List<Producto> productos = new ArrayList<>();
     List<Carrito> listaCarrito = new ArrayList<>();
     int item;
@@ -134,17 +136,23 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher("carrito.jsp").forward(request, response);
                 break;
             case "GenerarCompra":
-                Cliente cliente = new Cliente();
                 cliente.setId(1);
+                Pago pago = new Pago();
+                PagoDAO daoPago = new PagoDAO();
+                pago.setMonto(totalPagar);
+                pago = daoPago.GenerarPago(pago);
                 CompraDAO dao = new CompraDAO();
-                Compra compra = new Compra(cliente, 1, Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
-                int res = dao.GenerarCompra(compra);
-                if (res != 0 && totalPagar > 0) {
-                    request.getRequestDispatcher("mensaje.jsp").forward(request, response);
-                } else {
+                if (cliente == null || pago== null) {
                     request.getRequestDispatcher("error.jsp").forward(request, response);
+                } else {
+                    Compra compra = new Compra(cliente, pago.getId(), Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
+                    int res = dao.GenerarCompra(compra);
+                    if (res != 0 && totalPagar > 0) {
+                        request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+                    } else {
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
                 }
-
                 break;
             default:
                 request.setAttribute("productos", productos);
