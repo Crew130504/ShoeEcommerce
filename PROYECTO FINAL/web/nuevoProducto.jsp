@@ -44,7 +44,7 @@
             <form action="ControladorAdmin" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombres">Nombre del Producto</label>
-                    <input type="text" class="form-control" id="nombres" name="nombres" required>
+                    <input value="<%= request.getAttribute("nombreE")%>" type="text" class="form-control" id="nombres" name="nombres" required>
                 </div>
                 <div class="form-group">
                     <label for="foto">Foto del Producto</label>
@@ -52,18 +52,19 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><%= request.getAttribute("descripcionE")%></textarea>
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio</label>
-                    <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
+                    <input value="<%= request.getAttribute("precioE")%>" type="number" step="0.01" class="form-control" id="precio" name="precio" required>
                 </div>
                 <div class="form-group">
                     <label for="stock">Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" required>
+                    <input value="<%= request.getAttribute("stockE")%>" type="number" class="form-control" id="stock" name="stock" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                <a href="ControladorAdmin?accion=Confirmar&idC=${p.getId()}" class="btn btn-primary">Confirmar</a>
             </form>
+
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

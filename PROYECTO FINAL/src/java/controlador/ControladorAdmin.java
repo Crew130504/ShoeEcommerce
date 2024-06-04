@@ -41,6 +41,10 @@ public class ControladorAdmin extends HttpServlet {
                 request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
                 break;
             case "rutaInsertarProducto":
+                request.setAttribute("nombreE", "");
+                request.setAttribute("descripcionE", "");
+                request.setAttribute("precioE", "");
+                request.setAttribute("stockE", "");
                 request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
                 break;
             case "rutaHistorial":
@@ -54,19 +58,39 @@ public class ControladorAdmin extends HttpServlet {
                 request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                 break;
             case "rutaEditarProducto":
+                int idE = Integer.parseInt(request.getParameter("idE"));
+                Producto productoE = pdao.listarId(idE);
+                request.setAttribute("nombreE", productoE.getNombres());
+                request.setAttribute("descripcionE", productoE.getDescripcion());
+                request.setAttribute("precioE", productoE.getPrecio());
+                request.setAttribute("stockE", productoE.getStock());
                 request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
                 break;
             case "iniciarSesion":
                 String correoLog = request.getParameter("correoLog");
                 String passwordLog = request.getParameter("passwordLog");
-                
-                if ("admin@shoeecommerce.com".equals(correoLog)&&"123".equals(passwordLog)) {
+
+                if ("admin@shoeecommerce.com".equals(correoLog) && "123".equals(passwordLog)) {
                     request.setAttribute("productos", productos);
                     request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                 } else {
                     request.setAttribute("usuarioNoRegistrado", "Credenciales Incorrectas");
                     request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
                 }
+                break;
+            case "Eliminar":
+                int idD = Integer.parseInt(request.getParameter("idD"));
+                int res = pdao.eliminarProducto(idD);
+                    if (res != 0) {
+                        request.setAttribute("mensaje", "PRODUCTO ELIMINADO");
+                        request.getRequestDispatcher("mensaje.jsp").forward(request, response);
+                    } else {
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                break;
+            case "Confirmar":
+                int idC = Integer.parseInt(request.getParameter("idC"));
+                
                 break;
             default:
                 request.getRequestDispatcher("index.jsp").forward(request, response);

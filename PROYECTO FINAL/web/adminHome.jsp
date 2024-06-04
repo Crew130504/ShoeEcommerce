@@ -54,10 +54,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">${p.getNombres()}</h5>
                                 <p class="card-text">${p.getDescripcion()}</p>
-                                <p class="card-text"><strong>${p.getPrecio()}</strong></p>
+                                <p class="card-text"><strong>$ ${p.getPrecio()}</strong></p>
                                 <div class="d-flex justify-content-between">
-                                    <a href="ControladorAdmin?accion=rutaEditarProducto&id=${p.getId()}" class="btn btn-outline-info">Editar</a>
-                                    <a href="Controlador?accion=Comprar&id=${p.getId()}" class="btn btn-danger">Eliminar</a>
+                                    <a href="ControladorAdmin?accion=rutaEditarProducto&idE=${p.getId()}" class="btn btn-outline-info">Editar</a>
+                                    <a href="ControladorAdmin?accion=Eliminar&idD=${p.getId()}" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         </div>
