@@ -53,6 +53,9 @@ public class ControladorAdmin extends HttpServlet {
                 request.setAttribute("productos", productos);
                 request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                 break;
+            case "rutaEditarProducto":
+                request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
+                break;
             case "iniciarSesion":
                 String correoLog = request.getParameter("correoLog");
                 String passwordLog = request.getParameter("passwordLog");
