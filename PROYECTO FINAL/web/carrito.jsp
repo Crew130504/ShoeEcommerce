@@ -39,7 +39,7 @@
                             <c:if test="${usuario != null && usuario != ''}">
                                 <a class="dropdown-item" href="Controlador?accion=cerrarSesion">Cerrar Sesión</a>
                             </c:if>
-                        </div
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -76,7 +76,7 @@
                                     <td>${car.getSubTotal()}</td>
                                     <td>
                                         <input type="hidden" id="idp" value="${car.getIdProducto()}">
-                                        <a href="#" id="btnDelete">eliminar</a>
+                                        <a href="#" id="btnDelete" class="text-danger"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>

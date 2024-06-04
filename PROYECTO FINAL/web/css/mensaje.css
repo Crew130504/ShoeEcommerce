@@ -1,0 +1,37 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Calibri', sans-serif;
+}
+
+.bg-cover {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://media.blogto.com/articles/20180423-MECQueen4.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70') center center;
+    background-size: cover;
+    position: relative;
+}
+
+.custom-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+    max-width: 400px;
+}
+
+.alert-heading {
+    color: #343a40;
+    font-weight: bold;
+}
+
+.btn-warning {
+    background-color: #007bff !important; /* Cambiado a azul */
+    border-color: #007bff !important; /* Cambiado a azul */
+    color: #fff !important;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-warning:hover {
+    background-color: #0056b3 !important; /* Azul oscuro */
+    border-color: #0056b3 !important; /* Azul oscuro */
+    color: #fff !important;
+}

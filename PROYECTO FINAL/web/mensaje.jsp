@@ -3,19 +3,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>Shoe Ecommerce</title>
+        <title>Shoe Ecommerce - Mensaje!</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mensaje.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
     <body>
-        <div class="container mt-4">
-            <div class="col-sm-4">
-                <div class="alert alert -succes" role="alert">
+        <div class="d-flex justify-content-center align-items-center vh-100 bg-cover">
+            <div class="custom-container text-center">
+                <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">${mensaje}</h4>
                     <hr>
                     <a href="Controlador?accion=home" class="btn btn-warning">Volver</a>
-                    
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>

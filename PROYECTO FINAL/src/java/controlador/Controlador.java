@@ -152,7 +152,7 @@ public class Controlador extends HttpServlet {
                 pago = daoPago.GenerarPago(pago);
                 CompraDAO dao = new CompraDAO();
                 if (cliente == null || pago == null) {
-                    // mensaje que mande a registrar o iniciar sesion al cliente
+                    request.setAttribute("error", "Registrese o inicie sesion para realizar compra!");
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 } else {
                     Compra compra = new Compra(cliente, pago.getId(), Fecha.FechaBD(), totalPagar, "Cancelado", listaCarrito);
@@ -162,6 +162,7 @@ public class Controlador extends HttpServlet {
                         request.getRequestDispatcher("mensaje.jsp").forward(request, response);
                         listaCarrito.clear();
                     } else {
+                        request.setAttribute("error", "Registrese o inicie sesion para realizar compra!");
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
                 }
