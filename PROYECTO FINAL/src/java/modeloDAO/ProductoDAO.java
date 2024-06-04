@@ -34,7 +34,6 @@ public class ProductoDAO {
                 p.setFoto(rs.getBinaryStream(3));
                 p.setDescripcion(rs.getString(4));
                 p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(6));
             }
         } catch (Exception e) {
 
@@ -85,7 +84,6 @@ public class ProductoDAO {
                 p.setFoto(rs.getBinaryStream(3));
                 p.setDescripcion(rs.getString(4));
                 p.setPrecio(rs.getDouble(5));
-                p.setStock(rs.getInt(5));
                 productos.add(p);
             }
         } catch (Exception e) {
@@ -121,11 +119,12 @@ public class ProductoDAO {
     public int guardarOActualizarProducto(Producto producto) {
         int resultado = 0;
         String sqlExistencia = "SELECT COUNT(*) FROM producto WHERE idProducto = ?";
-        String sqlUpdate = "UPDATE producto SET nombres = ?, foto = ?, descripcion = ?, precio = ?, stock = ? WHERE idProducto = ?";
-        String sqlInsert = "INSERT INTO producto (idProducto, nombres, foto, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlUpdate = "UPDATE producto SET nombres = ?, foto = ?, descripcion = ?, precio = ? WHERE idProducto = ?";
+        String sqlInsert = "INSERT INTO producto (nombres, foto, descripcion, precio) VALUES (?, ?, ?, ?, ?)";
 
         try {
             con = cn.getConnection(); // Obtener la conexión
+            
             // Primero, verificar si el producto existe
             ps = con.prepareStatement(sqlExistencia);
             ps.setInt(1, producto.getId());
@@ -134,16 +133,16 @@ public class ProductoDAO {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            rs.close();
+            ps.close();
 
             if (count == 0) {
                 // Si el producto no existe, insertarlo
                 ps = con.prepareStatement(sqlInsert);
-                ps.setInt(1, producto.getId());
-                ps.setString(2, producto.getNombres());
-                ps.setBinaryStream(3, producto.getFoto());
-                ps.setString(4, producto.getDescripcion());
-                ps.setDouble(5, producto.getPrecio());
-                ps.setInt(6, producto.getStock());
+                ps.setString(1, producto.getNombres());
+                ps.setBinaryStream(2, producto.getFoto());
+                ps.setString(3, producto.getDescripcion());
+                ps.setDouble(4, producto.getPrecio());
                 resultado = ps.executeUpdate();
             } else {
                 // Si el producto existe, actualizarlo
@@ -151,18 +150,14 @@ public class ProductoDAO {
                 ps.setString(1, producto.getNombres());
                 ps.setBinaryStream(2, producto.getFoto());
                 ps.setString(3, producto.getDescripcion());
-                ps.setDouble(4, producto.getPrecio());
-                ps.setInt(5, producto.getStock());
-                ps.setInt(6, producto.getId());
+                ps.setDouble(4, producto.getPrecio()); 
+                ps.setInt(5, producto.getId());
                 resultado = ps.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprimir la excepción en caso de error
         } finally {
             try {
-                if (rs != null) {
-                    rs.close(); // Cerrar ResultSet
-                }
                 if (ps != null) {
                     ps.close(); // Cerrar PreparedStatement
                 }

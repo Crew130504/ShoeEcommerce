@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,12 +56,12 @@
                 <tbody>
                     <c:forEach var="compra" items="${compras}">
                         <tr>
-                            <td>${compra.idCompras}</td>
-                            <td>${compra.idCliente}</td>
-                            <td>${compra.idPago}</td>
-                            <td>${compra.FechaCompras}</td>
-                            <td>${compra.Monto}</td>
-                            <td>${compra.Estado}</td>
+                            <td>${compra.getId()}</td>
+                            <td>${compra.getCliente().getId()}</td>
+                            <td>${compra.getIdpago()}</td>
+                            <td>${compra.getFecha()}</td>
+                            <td>${compra.getMonto()}</td>
+                            <td>${compra.getEstado()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

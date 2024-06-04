@@ -4,7 +4,10 @@ import config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Carrito;
+import modelo.Cliente;
 import modelo.Compra;
 
 public class CompraDAO {
@@ -47,6 +50,30 @@ public class CompraDAO {
         } catch (Exception e) {
         }
         return r;
+    }
+    public List listar() {
+        ClienteDAO dao= new ClienteDAO();
+        List<Compra> compras = new ArrayList();
+        String sql = "SELECT * FROM compras";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Compra c = new Compra();
+                c.setId(rs.getInt(1));
+                int idCliente=rs.getInt(2);
+                Cliente miCliente =dao.listarId(idCliente);
+                c.setCliente(miCliente);
+                c.setIdpago(rs.getInt(3));
+                c.setFecha(rs.getString(4));
+                c.setMonto(rs.getDouble(5));
+                c.setEstado(rs.getString(6));
+                compras.add(c);
+            }
+        } catch (Exception e) {
+        }
+        return compras;
     }
 
 }

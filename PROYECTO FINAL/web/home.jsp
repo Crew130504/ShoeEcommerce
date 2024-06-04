@@ -56,7 +56,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">${p.getNombres()}</h5>
                                 <p class="card-text">${p.getDescripcion()}</p>
-                                <p class="card-text"><strong>${p.getPrecio()}</strong></p>
+                                <p class="card-text"><strong>$ ${p.getPrecio()}</strong></p>
                                 <div class="d-flex justify-content-between">
                                     <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a Carrito</a>
                                     <a href="Controlador?accion=Comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>

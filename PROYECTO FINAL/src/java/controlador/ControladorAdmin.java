@@ -1,41 +1,42 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import modelo.Producto;
+import modeloDAO.ClienteDAO;
+import modeloDAO.CompraDAO;
 import modeloDAO.ProductoDAO;
 
-/**
- *
- * @author nous_
- */
 @WebServlet(name = "ControladorAdmin", urlPatterns = {"/ControladorAdmin"})
+@MultipartConfig
 public class ControladorAdmin extends HttpServlet {
 
     ProductoDAO pdao = new ProductoDAO();
+    CompraDAO cdao = new CompraDAO();
+    ClienteDAO clidao = new ClienteDAO();
     Producto p = new Producto();
     List<Producto> productos = new ArrayList<>();
+    int idE = -1;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("compras",cdao.listar() );
         productos = pdao.listar();
         String accion = request.getParameter("accion");
+        if (accion == null || accion.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro de acción requerido");
+            return;
+        }
+
         switch (accion) {
             case "rutaAdmin":
                 request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
@@ -48,9 +49,11 @@ public class ControladorAdmin extends HttpServlet {
                 request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
                 break;
             case "rutaHistorial":
+                request.setAttribute("compras",cdao.listar() );
                 request.getRequestDispatcher("historial.jsp").forward(request, response);
                 break;
             case "rutaClientes":
+                request.setAttribute("clientes",clidao.listaDeClientes());
                 request.getRequestDispatcher("clientesAdmin.jsp").forward(request, response);
                 break;
             case "adminHome":
@@ -58,12 +61,11 @@ public class ControladorAdmin extends HttpServlet {
                 request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                 break;
             case "rutaEditarProducto":
-                int idE = Integer.parseInt(request.getParameter("idE"));
+                idE = Integer.parseInt(request.getParameter("idE"));
                 Producto productoE = pdao.listarId(idE);
                 request.setAttribute("nombreE", productoE.getNombres());
                 request.setAttribute("descripcionE", productoE.getDescripcion());
                 request.setAttribute("precioE", productoE.getPrecio());
-                request.setAttribute("stockE", productoE.getStock());
                 request.getRequestDispatcher("nuevoProducto.jsp").forward(request, response);
                 break;
             case "iniciarSesion":
@@ -74,66 +76,53 @@ public class ControladorAdmin extends HttpServlet {
                     request.setAttribute("productos", productos);
                     request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("usuarioNoRegistrado", "Credenciales Incorrectas");
+                    request.setAttribute("error", "Credenciales incorrectas");
                     request.getRequestDispatcher("loginAdmin.jsp").forward(request, response);
                 }
                 break;
+            case "Confirmar":
+                String nombre = request.getParameter("nombres");
+                String descripcion = request.getParameter("descripcion");
+                double precio = Double.parseDouble(request.getParameter("precio"));
+                int stock = Integer.parseInt(request.getParameter("stock"));
+                Part part = request.getPart("foto");
+                InputStream inputStream = part.getInputStream();
+                
+                    p.setId(idE);
+                    p.setNombres(nombre);
+                    p.setFoto(inputStream);
+                    p.setDescripcion(descripcion);
+                    p.setPrecio(precio);
+                pdao.guardarOActualizarProducto(p);
+                request.setAttribute("productos", pdao.listar());
+                request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                break;
             case "Eliminar":
                 int idD = Integer.parseInt(request.getParameter("idD"));
-                int res = pdao.eliminarProducto(idD);
-                    if (res != 0) {
-                        request.setAttribute("mensaje", "PRODUCTO ELIMINADO");
-                        request.getRequestDispatcher("mensaje.jsp").forward(request, response);
-                    } else {
-                        request.getRequestDispatcher("error.jsp").forward(request, response);
-                    }
-                break;
-            case "Confirmar":
-                int idC = Integer.parseInt(request.getParameter("idC"));
-                
-                break;
+                pdao.eliminarProducto(idD);
+                request.setAttribute("productos", pdao.listar());
+                request.getRequestDispatcher("adminHome.jsp").forward(request, response);
+                break; 
             default:
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+                
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

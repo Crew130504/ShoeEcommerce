@@ -181,4 +181,24 @@ public class ClienteDAO {
         }
         return cliente;
     }
+    public Cliente listarId(int id) {
+        String sql = "select * from cliente where idCliente=" + id;
+        Cliente c = new Cliente();
+        try {
+            con = Conexion.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt(1));
+                c.setDni(rs.getString(2));
+                c.setNombre(rs.getString(3));
+                c.setDireccion(rs.getString(4));
+                c.setCorreo(rs.getString(5));
+                c.setPassword(rs.getString(6));   
+            }
+        } catch (Exception e) {
+
+        }
+        return c;
+    }
 }

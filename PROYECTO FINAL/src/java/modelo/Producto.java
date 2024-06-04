@@ -8,18 +8,22 @@ public class Producto {
     InputStream foto;
     String descripcion;
     double precio;
-    int stock;
 
     public Producto() {
     }
 
-    public Producto(int id, String nombres, InputStream foto, String descripcion, double precio, int stock) {
+    public Producto(int id, String nombres, InputStream foto, String descripcion, double precio) {
         this.id = id;
         this.nombres = nombres;
         this.foto = foto;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.stock = stock;
+    }
+    public Producto( String nombres, InputStream foto, String descripcion, double precio) {
+        this.nombres = nombres;
+        this.foto = foto;
+        this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     public int getId() {
@@ -60,16 +64,5 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-    
-    
-            
+    }              
 }

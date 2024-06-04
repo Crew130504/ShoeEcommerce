@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,11 +56,11 @@
                 <tbody>
                     <c:forEach var="cliente" items="${clientes}">
                         <tr>
-                            <td>${cliente.idCliente}</td>
-                            <td>${cliente.Dni}</td>
-                            <td>${cliente.Nombres}</td>
-                            <td>${cliente.Direccion}</td>
-                            <td>${cliente.Email}</td>
+                            <td>${cliente.getId()}</td>
+                            <td>${cliente.getDni()}</td>
+                            <td>${cliente.getNombre()}</td>
+                            <td>${cliente.getDireccion()}</td>
+                            <td>${cliente.getCorreo()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
